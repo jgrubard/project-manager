@@ -12,19 +12,4 @@ const store = createStore(reducers, middleware);
 export default store;
 
 export * from './users';
-
-
-// import { createStore, applyMiddleware, combineReducers } from 'redux';
-// import thunk from 'redux-thunk';
-// import logger from 'redux-logger';
-
-// import users from './users';
-
-// const reducers = combineReducers({ users });
-// const middleware = applyMiddleware(thunk, logger);
-
-// const store = createStore(reducers, middleware);
-
-// export default store;
-
-// export * from './users';
+export * from './user';

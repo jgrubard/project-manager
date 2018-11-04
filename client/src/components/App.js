@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUsersFromServer } from '../../redux'
+
+import Login from './Login';
 import Users from './Users';
 
 class App extends Component {
@@ -10,7 +12,7 @@ class App extends Component {
   }
   render() {
     return(
-      <Users />
+      <Login />
     ); 
   }
 }

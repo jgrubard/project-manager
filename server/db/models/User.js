@@ -2,10 +2,10 @@ const conn = require('../conn');
 const { Sequelize } = conn;
 
 const User = conn.define('user', {
-  name: {
+  email: {
     type: Sequelize.STRING
   },
-  email: {
+  password: {
     type: Sequelize.STRING
   }
 }, {
@@ -15,6 +15,19 @@ const User = conn.define('user', {
 User.seedUsers = function(users) {
   users = users.map(user => this.create(user));
   return Promise.all(users);
+}
+
+User.authenticate = function(email, password) {
+  return this.findOne({
+    where: { email, password }
+  })
+  .then(user => {
+    if(user) {
+      const token = jwt.encode({ id: user.id }, 'foo');
+      return token;
+    }
+    throw('invalid login');
+  });
 }
 
 module.exports = User;

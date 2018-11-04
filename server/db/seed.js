@@ -2,8 +2,14 @@ const conn = require('./conn');
 const User = require('./models/User');
 
 const users = [
-  { name: 'Jeremy', email: 'jgrubard@gmail.com' },
-  { name: 'Supattra', email: 'su@gmail.com' }
+  {
+    email: 'jgrubard@gmail.com',
+    password: 'jeremy'
+  },
+  {
+    email: 'su@gmail.com',
+    password: 'su'
+  }
 ];
 
 const seed = async () => {
