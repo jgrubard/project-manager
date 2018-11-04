@@ -1,5 +1,6 @@
 const conn = require('../conn');
 const { Sequelize } = conn;
+const jwt = require('jwt-simple');
 
 const User = conn.define('user', {
   email: {
@@ -17,17 +18,28 @@ User.seedUsers = function(users) {
   return Promise.all(users);
 }
 
-User.authenticate = function(email, password) {
-  return this.findOne({
+User.authenticate = async function(email, password) {
+  const user = await this.findOne({
     where: { email, password }
   })
-  .then(user => {
+  if(user) {
+    const token = jwt.encode({ id: user.id }, 'foo');
+    return token;
+  }
+  throw('invalid login');
+}
+
+User.exchangeTokenForUser = async function(token) {
+  try {
+    const id = jwt.decode(token, 'foo').id;
+    const user = await this.findById(id);
     if(user) {
-      const token = jwt.encode({ id: user.id }, 'foo');
-      return token;
+      return user;
     }
-    throw('invalid login');
-  });
+    throw { status: 401 };
+  } catch(err) {
+    console.error(err);
+  }
 }
 
 module.exports = User;

@@ -3,9 +3,10 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import users from './users';
+import user from './user';
 
 const middleware = applyMiddleware(thunk, logger);
-const reducers = combineReducers({ users });
+const reducers = combineReducers({ user, users });
 
 const store = createStore(reducers, middleware);
 

@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUsersFromServer } from '../../redux'
+import { fetchUsersFromServer, getUserFromToken } from '../../redux'
 
-import Login from './Login';
+import LoginState from '../Login/LoginState';
 import Users from './Users';
 
 class App extends Component {
   componentDidMount() {
-    const { loadUsers } = this.props;
+    const { loadUser, loadUsers } = this.props;
+    loadUser();
     loadUsers();
   }
   render() {
     return(
-      <Login />
+      <LoginState />
     ); 
   }
 }
@@ -21,6 +22,12 @@ const mapState = null;
 
 const mapDispatch = dispatch => {
   return {
+    loadUser: () => {
+      const token = window.localStorage.getItem('token');
+      if(token) {
+        dispatch(getUserFromToken(token));
+      }
+    },
     loadUsers: () => dispatch(fetchUsersFromServer())
   }
 }
