@@ -1,14 +1,21 @@
+require('dotenv').config();
 const conn = require('./conn');
 const User = require('./models/User');
+
+const bcrypt = require('bcryptjs');
+const salt = bcrypt.genSaltSync(10);
+
+const jeremyPassword = bcrypt.hashSync(process.env.JG_PW, salt);
+const suPassword = bcrypt.hashSync(process.env.SS_PW, salt);
 
 const users = [
   {
     email: 'jgrubard@gmail.com',
-    password: 'jeremy'
+    password: jeremyPassword
   },
   {
     email: 'su@gmail.com',
-    password: 'su'
+    password: suPassword
   }
 ];
 

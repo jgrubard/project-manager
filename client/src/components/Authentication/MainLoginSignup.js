@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { Button } from '../Library';
+
 import LoginState from './LoginState';
 import SignupState from './SignupState';
 
@@ -20,14 +22,25 @@ class MainLoginSignup extends Component {
   render() {
     const { section } = this.state;
     const { toggleSection } = this;
+    const { loggedIn } = this.props;
     return (
       <div className='login-container'>
         <div className='toggle-container'>
-          <button className={`login-toggle${ section === 'login' ? ' active' : '' }`} onClick={() => toggleSection('login')}>Login</button>
-          <button className={`login-toggle${ section === 'signup' ? ' active' : '' }`} onClick={() => toggleSection('signup')}>Sign Up</button>
+          <Button
+            onClick={() => toggleSection('login')}
+            label='Log In'
+            active={loggedIn || section === 'login'}
+          />
+          { !loggedIn && 
+            <Button
+              onClick={() => toggleSection('signup')}
+              label='Sign Up'
+              active={section === 'signup'}
+            />
+          }
         </div>
         { section === 'login' && <LoginState /> }
-        { section === 'signup' && <SignupState /> }
+        { loggedIn || section === 'signup' && <SignupState /> }
       </div>
     );
   }

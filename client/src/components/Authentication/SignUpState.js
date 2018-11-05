@@ -1,23 +1,84 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class SignUpState extends Component {
+import { Button, Input } from '../Library';
+import { signup } from '../../../redux';
+
+class SignupState extends Component {
   constructor() {
     super();
-    this.state = {}
+    this.state = {
+      email: '',
+      password1: '',
+      password2: ''
+    }
+    this.onChangeInput = this.onChangeInput.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onChangeInput(ev) {
+    const { name, value } = ev.target;
+    const change = {};
+    change[name] = value;
+    this.setState(change);
+  }
+
+  onSubmit(ev) {
+    ev.preventDefault();
+    const { email, password1, password2 } = this.state;
+    const { signupUser } = this.props;
+    signupUser({ email, password: password1 });
   }
 
   render() {
+    const { email, password1, password2 } = this.state;
+    const { onChangeInput, onSubmit } = this;
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div className='center'>
         <h2>Sign Up!</h2>
-        <input className='input-field' type='email' placeholder='Enter email address'/>
+        <Input
+          type='email'
+          placeholder='email'
+          name='email'
+          value={email}
+          onChange={onChangeInput}
+        />
+        <Input
+          type='password'
+          placeholder='password'
+          name='password1'
+          value={password1}
+          onChange={onChangeInput}
+        />
+        <Input
+          type='password'
+          placeholder='confirm password'
+          name='password2'
+          value={password2}
+          onChange={onChangeInput}
+        />
+        <br />
+        <Button
+          onClick={onSubmit}
+          label='Sign Up'
+          active={true}
+        />
+        {/* <input className='input-field' type='email' placeholder='Enter email address'/>
         <input className='input-field' type='password' placeholder='enter password'/>
         <input className='input-field' type='password' placeholder='enter password again'/>
         <br />
-        <button className='login-toggle active'>Sign Up</button>
+        <button className='login-toggle active'>Sign Up</button> */}
       </div>
     );
   }
 }
 
-export default SignUpState;
+const mapState = null;
+
+const mapDispatch = dispatch => {
+  return {
+    signupUser: (credentials) => dispatch(signup(credentials))
+  }
+}
+
+export default connect(mapState, mapDispatch)(SignupState);

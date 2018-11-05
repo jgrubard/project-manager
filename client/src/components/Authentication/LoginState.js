@@ -56,11 +56,7 @@ class LoginState extends Component {
 }
 
 const mapState = ({ user }) => {
-  // const loggedIn = !!user.id;
-  return {
-    // loggedIn,
-    user
-  }
+  return { user };
 };
 
 const mapDispatch = dispatch => {
