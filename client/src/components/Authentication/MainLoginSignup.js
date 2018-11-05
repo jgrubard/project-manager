@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import { Button } from '../Library';
 
@@ -22,34 +21,25 @@ class MainLoginSignup extends Component {
   render() {
     const { section } = this.state;
     const { toggleSection } = this;
-    const { loggedIn } = this.props;
     return (
       <div className='login-container'>
         <div className='toggle-container'>
           <Button
             onClick={() => toggleSection('login')}
             label='Log In'
-            active={loggedIn || section === 'login'}
+            active={ section === 'login'}
           />
-          { !loggedIn && 
-            <Button
-              onClick={() => toggleSection('signup')}
-              label='Sign Up'
-              active={section === 'signup'}
-            />
-          }
+          <Button
+            onClick={() => toggleSection('signup')}
+            label='Sign Up'
+            active={section === 'signup'}
+          />
         </div>
         { section === 'login' && <LoginState /> }
-        { loggedIn || section === 'signup' && <SignupState /> }
+        { section === 'signup' && <SignupState /> }
       </div>
     );
   }
 }
 
-const mapState = ({ user }) => {
-  return {
-    loggedIn: !!user.id
-  }
-}
-
-export default connect(mapState)(MainLoginSignup);
+export default MainLoginSignup;
