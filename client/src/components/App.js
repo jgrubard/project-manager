@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUsersFromServer, getUserFromToken } from '../../redux'
 
-import LoginState from '../Login/LoginState';
-import Users from './Users';
+import MainLoginSignup from './Authentication/MainLoginSignup';
 
 class App extends Component {
   componentDidMount() {
@@ -13,7 +12,7 @@ class App extends Component {
   }
   render() {
     return(
-      <LoginState />
+      <MainLoginSignup />
     ); 
   }
 }

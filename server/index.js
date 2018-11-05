@@ -5,6 +5,7 @@ const port = process.env.PORT || 3000;
 // const { conn, sync, seed } = require('./db');
 
 app.use('/vendor', express.static(path.join(__dirname, '../node_modules')));
+app.use('/public', express.static(path.join(__dirname, '../client/public')));
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 app.use(require('body-parser').json());

@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "webpack": "./node_modules/webpack/bin/webpack.js",
+    "scss": "node-sass --watch client/public/scss -o client/public/scss/css",
     "seed": "node ./server/db/seed",
-    "start:dev": "npm run seed & npm run webpack -- -w & nodemon server --ignore dist/ --ignore client/src/"
+    "start:dev": "npm run seed & npm run webpack -- -w & nodemon server --ignore dist/ --ignore client/src/ & npm run scss"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "jwt-simple": "^0.5.5",
+    "node-sass": "^4.10.0",
     "pg": "^7.6.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
