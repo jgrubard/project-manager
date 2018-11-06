@@ -16,4 +16,9 @@ app.get('/', (req, res, next) => {
 
 app.use('/api', require('./routes'));
 
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  res.status(500).send(err);
+});
+
 app.listen(port, () => console.log(`* Listening on Port ${port} *`));
