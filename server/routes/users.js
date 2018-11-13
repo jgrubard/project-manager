@@ -6,7 +6,6 @@ app.get('/', async (req, res, next) => {
     const users = await User.findAll();
     res.send(users);
   } catch(err) {
-    console.error(err);
     next(err);
   }
 });

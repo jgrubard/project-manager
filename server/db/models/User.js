@@ -7,7 +7,8 @@ const User = conn.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isEmail: true
+      isEmail: true,
+      notEmpty: true
     }
   },
   password: {
@@ -18,10 +19,10 @@ const User = conn.define('user', {
   timestamps: false
 });
 
-User.seedUsers = function(users) {
-  users = users.map(user => this.create(user));
-  return Promise.all(users);
-}
+// User.seedUsers = function(users) {
+//   users = users.map(user => this.create(user));
+//   return Promise.all(users);
+// }
 
 User.findPassword = async function(email) {
   const user = await this.findOne({
@@ -41,7 +42,7 @@ User.authenticate = async function(email, password) {
     const token = jwt.encode({ id: user.id }, process.env.JWT_KEY);
     return token;
   }
-  throw('invalid login');
+  throw { status: 401 };
 }
 
 User.exchangeTokenForUser = async function(token) {

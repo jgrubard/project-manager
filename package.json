@@ -8,7 +8,7 @@
     "scss": "node-sass --watch client/public/style/scss -o client/public/style/css",
     "seed": "node ./server/db/seed",
     "start:dev": "npm run seed & npm run webpack -- -w & nodemon server --ignore dist/ --ignore client/src/ & npm run scss",
-    "test": "jest --watch"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

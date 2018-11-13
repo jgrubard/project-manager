@@ -6,18 +6,28 @@ import { addUser } from './users';
 const gotUser = user => ({ type: GOT_USER, user });
 
 export const signup = (credentials) => async dispatch => {
-  const response = await axios.post('/api/sessions/signup', credentials)
-  const token = response.data;
-  window.localStorage.setItem('token', token);
-  const user = await dispatch(getUserFromToken(token));
-  await dispatch(addUser(user));
+  try {
+    const response = await axios.post('/api/sessions/signup', credentials)
+    const token = response.data;
+    window.localStorage.setItem('token', token);
+    const user = await dispatch(getUserFromToken(token));
+    await dispatch(addUser(user));
+  } catch(err) {
+    const errors = err.response.data.errors;
+    errors.forEach(error => console.log(error.value, '--', error.message));
+  }
+
 }
 
 export const attemptLogin = (credentials) => async dispatch => {
-  const response = await axios.post('/api/sessions', credentials)
-  const token = response.data;
-  window.localStorage.setItem('token', token);
-  await dispatch(getUserFromToken(token));
+  try {
+    const response = await axios.post('/api/sessions', credentials)
+    const token = response.data;
+    window.localStorage.setItem('token', token);
+    await dispatch(getUserFromToken(token));
+  } catch (err) {
+    window.localStorage.removeItem('token');
+  }
 }
 
 export const getUserFromToken = (token) => async dispatch => {

@@ -26,10 +26,15 @@ app.get('/:token', async (req, res, next) => {
 });
 
 app.post('/signup', async (req, res, next) => {
-  const user = await User.create(req.body);
-  const { email, password } = user;
-  const token = await User.authenticate(email, password);
-  res.send(token);
+  try {
+    const user = await User.create(req.body);
+    const { email, password } = user;
+    const token = await User.authenticate(email, password);
+    res.send(token);
+  } catch(err) {
+    // console.log(err);
+    next(err);
+  }
 });
 
 module.exports = app;
