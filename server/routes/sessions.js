@@ -4,13 +4,13 @@ const { User } = require('../db').models;
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 
-app.post('/', async (req, res, next) => {
+app.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const hash = await User.findPassword(email);
     const authorized = await bcrypt.compare(password, hash);
     if(authorized) {
-      const token = await User.authenticate(email, hash)
+      const token = await User.authenticate(email, hash);
       return res.send(token);
     }
     res.sendStatus(401);

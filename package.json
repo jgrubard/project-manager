@@ -8,7 +8,8 @@
     "scss": "node-sass --watch client/public/style/scss -o client/public/style/css",
     "seed": "node ./server/db/seed",
     "start:dev": "npm run seed & npm run webpack -- -w & nodemon server --ignore dist/ --ignore client/src/ & npm run scss",
-    "test": "jest"
+    "test:db": "jest test/server/db --watch",
+    "test:api": "jest test/server/routes"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +36,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^4.41.0",
+    "supertest": "^3.3.0",
     "webpack": "^3.11.0"
   }
 }

@@ -35,9 +35,11 @@ User.findPassword = async function(email) {
 }
 
 User.authenticate = async function(email, password) {
+  console.log(email, password)
   const user = await this.findOne({
     where: { email, password }
   })
+  console.log('user:', user);
   if(user) {
     const token = jwt.encode({ id: user.id }, process.env.JWT_KEY);
     return token;

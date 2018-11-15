@@ -1,4 +1,5 @@
 import React from 'react';
+import Logout from './Logout';
 import { Button, Input } from '../Library';
 
 const Login = ({ email, password, onChangeInput, onSubmit, onLogout, user }) => {
@@ -7,14 +8,15 @@ const Login = ({ email, password, onChangeInput, onSubmit, onLogout, user }) => 
     <div className='center'>
       {
         loggedIn ? (
-          <div>
-            <h2>Welcome, <i>{user.email}</i>!</h2>
-            <Button
-              onClick={onLogout}
-              label='Log Out'
-              active={true}
-            />
-          </div>
+          // <div>
+          //   <h2>Welcome, <i>{user.email}</i>!</h2>
+          //   <Button
+          //     onClick={onLogout}
+          //     label='Log Out'
+          //     active={true}
+          //   />
+          // </div>
+          <Logout onLogout={onLogout} email={user.email} />
         ) : (
           <div>
             <h2>Log In</h2>

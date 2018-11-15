@@ -19,21 +19,24 @@ export const signup = (credentials) => async dispatch => {
 
 }
 
-export const attemptLogin = (credentials) => async dispatch => {
+export const attemptLogin = (credentials, history) => async dispatch => {
+  console.log(history)
   try {
-    const response = await axios.post('/api/sessions', credentials)
+    const response = await axios.post('/api/sessions/login', credentials)
     const token = response.data;
     window.localStorage.setItem('token', token);
-    await dispatch(getUserFromToken(token));
+    await dispatch(getUserFromToken(token, history));
   } catch (err) {
     window.localStorage.removeItem('token');
   }
 }
 
-export const getUserFromToken = (token) => async dispatch => {
+export const getUserFromToken = (token, history) => async dispatch => {
+  console.log(history)
   const response = await axios.get(`/api/sessions/${token}`)
   const user = response.data;
-  dispatch(gotUser(user));
+  await dispatch(gotUser(user));
+  if(history) history.push('/projects');
   return user;
 }
 

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'; 
 import { connect } from 'react-redux';
-import { fetchUsersFromServer, getUserFromToken } from '../../redux'
+import { fetchUsersFromServer, getUserFromToken } from '../../redux';
 
 import MainLoginSignup from './Authentication/MainLoginSignup';
+import Nav from './Nav';
+import AllProjects from './Projects/AllProjects';
 
 class App extends Component {
   componentDidMount() {
@@ -11,13 +14,29 @@ class App extends Component {
     loadUsers();
   }
   render() {
+    const { user } = this.props;
     return(
-      <MainLoginSignup />
+      <Router>
+        <div>
+          {/* { */}
+            {/* !user.id ? ( */}
+              <Route exact path='/' render={({ history }) => <MainLoginSignup history={ history } />} />
+            {/* ) : ( */}
+              <div>
+                <Nav />
+                <Route exact path='/projects' render={() => <AllProjects />} />
+              </div>
+            {/* ) */}
+          {/* } */}
+          
+        </div>
+      </Router>
+      
     ); 
   }
 }
 
-const mapState = null;
+const mapState = ({ user }) => ({ user });
 
 const mapDispatch = dispatch => {
   return {

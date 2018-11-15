@@ -59,9 +59,9 @@ const mapState = ({ user }) => {
   return { user };
 };
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, { history }) => {
   return {
-    login: (credentials) => dispatch(attemptLogin(credentials)),
+    login: (credentials) => dispatch(attemptLogin(credentials, history)),
     logout: () => dispatch(logoutUser()),
   }
 }
