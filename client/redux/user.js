@@ -20,7 +20,6 @@ export const signup = (credentials) => async dispatch => {
 }
 
 export const attemptLogin = (credentials, history) => async dispatch => {
-  console.log(history)
   try {
     const response = await axios.post('/api/sessions/login', credentials)
     const token = response.data;
@@ -32,7 +31,6 @@ export const attemptLogin = (credentials, history) => async dispatch => {
 }
 
 export const getUserFromToken = (token, history) => async dispatch => {
-  console.log(history)
   const response = await axios.get(`/api/sessions/${token}`)
   const user = response.data;
   await dispatch(gotUser(user));

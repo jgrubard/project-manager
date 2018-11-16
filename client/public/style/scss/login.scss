@@ -1,21 +1,24 @@
 $hover-button: rgb(23, 126, 23);
 $active-button: rgb(0, 100, 0);
 $normal-button: rgb(114, 175, 114);
+$background-color: rgb(184, 221, 184);
 
 .login-container {
   width: 400px;
   padding: 25px;
   margin-left: auto;
   margin-right: auto;
-  background-color: rgb(184, 221, 184);
+  border-radius: 10px;
+  background-color: $background-color;
+  box-shadow: 0px 0px 6px rgba(80, 80, 80, 0.5);
 }
 
 .login-toggle {
-  width: 150px;
+  width: 110px;
   background-color: $normal-button;
-  color: lightgrey;
+  color: rgb(221, 221, 221);
   padding: 5px;
-  font-size: 20px;
+  font-size: 12px;
   letter-spacing: 2px;
   font-weight: bold;
   text-transform: uppercase;

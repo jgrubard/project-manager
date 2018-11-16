@@ -2,20 +2,12 @@ import React from 'react';
 import Logout from './Logout';
 import { Button, Input } from '../Library';
 
-const Login = ({ email, password, onChangeInput, onSubmit, onLogout, user }) => {
+const Login = ({ email, password, onChangeInput, onSubmit, onLogout, user, closeModal }) => {
   const loggedIn = !!user.id;
   return (
-    <div className='center'>
+    <div className='login-container'>
       {
         loggedIn ? (
-          // <div>
-          //   <h2>Welcome, <i>{user.email}</i>!</h2>
-          //   <Button
-          //     onClick={onLogout}
-          //     label='Log Out'
-          //     active={true}
-          //   />
-          // </div>
           <Logout onLogout={onLogout} email={user.email} />
         ) : (
           <div>
@@ -38,6 +30,11 @@ const Login = ({ email, password, onChangeInput, onSubmit, onLogout, user }) => 
             <Button
               onClick={onSubmit}
               label='Log In'
+              active={true}
+            />
+            <Button
+              onClick={closeModal}
+              label='Close Modal'
               active={true}
             />
           </div>

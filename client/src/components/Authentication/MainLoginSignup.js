@@ -10,7 +10,7 @@ class MainLoginSignup extends Component {
   constructor() {
     super();
     this.state = {
-      section: 'signup'
+      section: 'login'
     }
     this.toggleSection = this.toggleSection.bind(this);
   }
@@ -21,13 +21,15 @@ class MainLoginSignup extends Component {
 
   render() {
     const { section } = this.state;
-    const { history } = this.props;
+    // const { history } = this.props;
     const { toggleSection } = this;
+    const { openModal } = this.props;
     return (
-      <div className='login-container'>
+    
         <div className='toggle-container'>
           <Button
-            onClick={() => toggleSection('login')}
+            // onClick={() => toggleSection('login')}
+            onClick={() => openModal('loginModalOpen')}
             label='Log In'
             active={ section === 'login'}
           />
@@ -37,9 +39,7 @@ class MainLoginSignup extends Component {
             active={section === 'signup'}
           />
         </div>
-        { section === 'login' && <LoginState history={history} /> }
-        { section === 'signup' && <SignupState /> }
-      </div>
+    
     );
   }
 }

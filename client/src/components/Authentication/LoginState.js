@@ -10,7 +10,8 @@ class LoginState extends Component {
     super();
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      // modalClosed: true
     }
     this.onChangeInput = this.onChangeInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -38,19 +39,31 @@ class LoginState extends Component {
     logout();
   }
 
+  // closeModal() {
+  //   const { modal } = this.state;
+  //   this.setState({ modal: !modal });
+  // }
+
   render() {
     const { email, password } = this.state;
     const { onChangeInput, onSubmit, onLogout } = this;
-    const { user } = this.props;
+    const { user, modalOpen, closeModal } = this.props;
     return (
-      <Login 
-        email={email}
-        password={password}
-        onChangeInput={onChangeInput}
-        onSubmit={onSubmit}
-        onLogout={onLogout}
-        user={user}
-      />
+      <div>
+        {
+          modalOpen && 
+            <Login 
+              email={email}
+              password={password}
+              onChangeInput={onChangeInput}
+              onSubmit={onSubmit}
+              onLogout={onLogout}
+              user={user}
+              closeModal={() => closeModal('loginModalOpen')}
+            />
+        }
+      </div>
+
     );
   }
 }

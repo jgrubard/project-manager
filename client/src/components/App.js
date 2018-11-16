@@ -5,6 +5,7 @@ import { fetchUsersFromServer, getUserFromToken } from '../../redux';
 
 import MainLoginSignup from './Authentication/MainLoginSignup';
 import Nav from './Nav';
+import Home from './Home';
 import AllProjects from './Projects/AllProjects';
 
 class App extends Component {
@@ -18,20 +19,14 @@ class App extends Component {
     return(
       <Router>
         <div>
-          {/* { */}
-            {/* !user.id ? ( */}
-              <Route exact path='/' render={({ history }) => <MainLoginSignup history={ history } />} />
-            {/* ) : ( */}
-              <div>
-                <Nav />
-                <Route exact path='/projects' render={() => <AllProjects />} />
-              </div>
-            {/* ) */}
-          {/* } */}
-          
+          <Nav />
+          <div className='main-container'>
+          <Route exact path='/' render={({ history }) => <Home history={ history } />} />
+            {/* <Route exact path='/' render={({ history }) => <MainLoginSignup history={ history } />} /> */}
+            <Route exact path='/projects' render={() => <AllProjects />} />
+          </div>
         </div>
       </Router>
-      
     ); 
   }
 }
