@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { attemptLogin } from '../../../redux';
 import { Button, Input } from '../Library';
@@ -88,8 +89,7 @@ class LoginState extends Component {
     );
   }
 }
-const mapState = null;
-// const mapState = ({ user }) => ({ user, loggedIn: !!user.id });
+const mapState = ({ user }) => ({ loggedIn: !!user.id });
 
 const mapDispatch = (dispatch, { history }) => {
   return {
@@ -97,4 +97,4 @@ const mapDispatch = (dispatch, { history }) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(LoginState);
+export default withRouter(connect(mapState, mapDispatch)(LoginState));

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { Button } from '../Library';
 import { logoutUser } from '../../../redux';
@@ -31,10 +32,10 @@ class Logout extends Component {
 
 const mapState = null;
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, { history }) => {
   return {
-    logout: () => dispatch(logoutUser()),
+    logout: () => dispatch(logoutUser(history)),
   }
 }
 
-export default connect(mapState, mapDispatch)(Logout);
+export default withRouter(connect(mapState, mapDispatch)(Logout));

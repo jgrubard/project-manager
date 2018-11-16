@@ -4,8 +4,10 @@ class AllProjects extends Component {
   render() {
     return (
       <div>
-        All Projects
+      <div style={{ padding: '10', marginTop: '75px' }}>
+        <h2>All Projects</h2>
       </div>
+    </div>
     );
   }
 }

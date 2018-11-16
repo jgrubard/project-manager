@@ -6,6 +6,7 @@ import { fetchUsersFromServer, getUserFromToken } from '../../redux';
 import Nav from './Nav';
 import Home from './Home';
 import AllProjects from './Projects/AllProjects';
+import Dashboard from './DashBoard/Dashboard';
 
 class App extends Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ class App extends Component {
           <div className='main-container'>
             <Route exact path='/' render={({ history }) => <Home history={ history } />} />
             <Route exact path='/projects' render={() => <AllProjects />} />
+            <Route exact path='/:id/dashboard' render={({ match }) => <Dashboard id={match.params.id}/>} />
           </div>
         </div>
       </Router>

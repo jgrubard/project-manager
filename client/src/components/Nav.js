@@ -65,7 +65,7 @@ class Nav extends Component {
         {
           !loggedIn && !!modalOpen &&
             <div className='modal-container'>
-              <LoginSignupModal modalOpen={modalOpen} closeModal={closeModal} loggedIn={!loggedIn}/>
+              <LoginSignupModal modalOpen={modalOpen} closeModal={closeModal} />
             </div>
         }
       </div>

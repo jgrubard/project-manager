@@ -21,7 +21,7 @@ class LoginSignupModal extends Component {
 
   render() {
     const { section } = this.state;
-    const { history, modalOpen, closeModal } = this.props;
+    const { modalOpen, closeModal } = this.props;
     const { toggleSection } = this;
     return (
       <div>
@@ -47,7 +47,7 @@ class LoginSignupModal extends Component {
                   active={section === 'signup'}
                 />
               </div>
-              { section === 'login' && <LoginState history={history} loggedIn={this.props.loggedIn}/> }
+              { section === 'login' && <LoginState /> }
               { section === 'signup' && <SignupState /> }
             </div>
         }

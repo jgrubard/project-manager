@@ -34,13 +34,14 @@ export const getUserFromToken = (token, history) => async dispatch => {
   const response = await axios.get(`/api/sessions/${token}`)
   const user = response.data;
   await dispatch(gotUser(user));
-  if(history) history.push('/projects');
+  if(history) history.push(`${user.id}/dashboard`);
   return user;
 }
 
-export const logoutUser = () => dispatch => {
+export const logoutUser = (history) => dispatch => {
   window.localStorage.removeItem('token');
   dispatch(gotUser({}));
+  history.push('/');
 }
 
 const store = (state = {}, action) => {
