@@ -3,6 +3,10 @@
   margin: 0;
   padding: 0; }
 
-.main-container {
-  margin: 50px;
-  background-color: lightgray; }
+body .main-container {
+  background-image: linear-gradient(to left, white, #e1e1e1);
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: 1px;
+  padding-right: 10px;
+  padding-left: 10px; }

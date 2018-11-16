@@ -43,14 +43,14 @@ class LoginState extends Component {
     this.setState(change);
   }
 
-  onSubmit(ev) {
+  async onSubmit(ev) {
     ev.preventDefault();
     const { email, password } = this.state;
     const { login, loggedIn } = this.props;
     const errors = this.evaluateErrors();
     this.setState({ errors });
     if(Object.keys(errors).length) return;
-    login({ email, password });
+    await login({ email, password });
     if(!loggedIn && !this.unMounted) {
       this.setState({ badLogin: 'Incorrect Email or Password. Please try again.' });
     }

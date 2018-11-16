@@ -2,6 +2,7 @@ $background-color: rgb(184, 221, 184);
 $brand-color: rgb(0, 100, 0);
 
 .nav {
+  padding: 0;
   position: fixed;
   top: 0;
   width: 100%;
@@ -40,9 +41,4 @@ $brand-color: rgb(0, 100, 0);
   margin-top: 150px;
   width: 100%;
   text-align: center;
-}
-
-.modal-bg {
-  // background-color: black;
-  // color: red;
 }

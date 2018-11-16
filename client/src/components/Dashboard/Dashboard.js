@@ -4,7 +4,7 @@ class Dashboard extends Component {
   render() {
     return (
     <div>
-      <div style={{ padding: '10', marginTop: '75px' }}>
+      <div>
         <h2>Dashboard</h2>
       </div>
     </div>

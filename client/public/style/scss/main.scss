@@ -4,7 +4,12 @@
   padding: 0;
 }
 
-.main-container {
-  margin: 50px;
-  background-color: lightgray;
+
+body .main-container {
+  background-image: linear-gradient(to left, white , rgb(225, 225, 225));
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
