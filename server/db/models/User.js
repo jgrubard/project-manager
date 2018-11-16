@@ -19,11 +19,6 @@ const User = conn.define('user', {
   timestamps: false
 });
 
-// User.seedUsers = function(users) {
-//   users = users.map(user => this.create(user));
-//   return Promise.all(users);
-// }
-
 User.findPassword = async function(email) {
   const user = await this.findOne({
     where: { email }

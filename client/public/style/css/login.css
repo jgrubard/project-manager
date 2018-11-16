@@ -25,6 +25,17 @@
   .login-toggle:focus {
     outline: 0; }
 
+.long {
+  width: 175px; }
+
+.x-button {
+  position: fixed;
+  margin-left: 385px;
+  margin-top: -15px; }
+
+.square {
+  width: 30px; }
+
 .active {
   background-color: darkgreen;
   color: white; }

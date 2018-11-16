@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { attemptLogin, logoutUser } from '../../../redux';
-
+import { attemptLogin } from '../../../redux';
 import Login from './Login';
 
 class LoginState extends Component {
@@ -10,12 +9,10 @@ class LoginState extends Component {
     super();
     this.state = {
       email: '',
-      password: '',
-      // modalClosed: true
+      password: ''
     }
     this.onChangeInput = this.onChangeInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onLogout = this.onLogout.bind(this);
   }
 
   onChangeInput(ev) {
@@ -33,49 +30,30 @@ class LoginState extends Component {
     this.setState({ email: '', password: '' });
   }
 
-  onLogout(ev) {
-    ev.preventDefault();
-    const { logout } = this.props;
-    logout();
-  }
-
-  // closeModal() {
-  //   const { modal } = this.state;
-  //   this.setState({ modal: !modal });
-  // }
-
   render() {
     const { email, password } = this.state;
     const { onChangeInput, onSubmit, onLogout } = this;
-    const { user, modalOpen, closeModal } = this.props;
+    const { user } = this.props;
     return (
       <div>
-        {
-          modalOpen && 
-            <Login 
-              email={email}
-              password={password}
-              onChangeInput={onChangeInput}
-              onSubmit={onSubmit}
-              onLogout={onLogout}
-              user={user}
-              closeModal={() => closeModal('loginModalOpen')}
-            />
-        }
+        <Login 
+          email={email}
+          password={password}
+          onChangeInput={onChangeInput}
+          onSubmit={onSubmit}
+          onLogout={onLogout}
+          user={user}
+        />
       </div>
-
     );
   }
 }
 
-const mapState = ({ user }) => {
-  return { user };
-};
+const mapState = ({ user }) => ({ user });
 
 const mapDispatch = (dispatch, { history }) => {
   return {
     login: (credentials) => dispatch(attemptLogin(credentials, history)),
-    logout: () => dispatch(logoutUser()),
   }
 }
 

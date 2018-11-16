@@ -1,31 +1,35 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import MainLoginSignup from './Authentication/MainLoginSignup';
-
-import LoginState from './Authentication/LoginState';
-import SignupState from './Authentication/SignupState';
+import { Button } from './Library';
+import LoginSignupModal from './Authentication/LoginSignupModal';
+import Logout from './Authentication/Logout';
 
 class Nav extends Component {
   constructor() {
     super();
     this.state = {
-      loginModalOpen: false,
-      signupModalOpen: false,
+      modalOpen: false,
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  openModal(type) {
-    this.setState({ [type]: true });
+  openModal(ev) {
+    ev.preventDefault();
+    this.setState({ modalOpen: true });
   }
 
-  closeModal(type) {
-    this.setState({ [type]: false });
+  closeModal(ev) {
+    ev.preventDefault();
+    this.setState({ modalOpen: false });
   }
 
   render() {
+    const { openModal, closeModal } = this;
+    const { modalOpen } = this.state;
+    const { user, loggedIn } = this.props;
     return (
       <div>
         <div className='nav'>
@@ -34,16 +38,43 @@ class Nav extends Component {
               Project Manager
             </Link>
           </div>
-          <div className='nav-item'>
-            <MainLoginSignup openModal={this.openModal} />
-          </div>
+          {
+            loggedIn &&
+              <div className='nav-item'>
+                <Logout closeModal={closeModal} />
+              </div>
+          }
+          {
+            loggedIn &&
+              <div className='nav-item nav-text'>
+                {user.email}
+              </div>
+          }
+          {
+            !loggedIn &&
+              <div className='nav-item'>
+                <Button
+                  onClick={openModal}
+                  label='Login/Signup'
+                  active={true}
+                  long={true}
+                />
+              </div>
+          }
         </div>
-        <div className='modal-container'>
-          <LoginState modalOpen={this.state.loginModalOpen} closeModal={this.closeModal}/>
-        </div>
+        {
+          !loggedIn && !!modalOpen &&
+            <div className='modal-container'>
+              <LoginSignupModal modalOpen={modalOpen} closeModal={closeModal} />
+            </div>
+        }
       </div>
     );
   }
 }
 
-export default Nav;
+const mapState = ({ user }) => ({ user, loggedIn: !!user.id });
+
+const mapDispatch = null;
+
+export default connect(mapState, mapDispatch)(Nav);

@@ -33,57 +33,44 @@ class SignupState extends Component {
   render() {
     const { email, password1, password2 } = this.state;
     const { onChangeInput, onSubmit } = this;
-    const { loggedIn } = this.props;
     return (
       <div className='center'>
-        {
-          !loggedIn
-            ? 
-              <div>
-                <h2>Sign Up!</h2>
-                <Input
-                  type='email'
-                  placeholder='email'
-                  name='email'
-                  value={email}
-                  onChange={onChangeInput}
-                />
-                <Input
-                  type='password'
-                  placeholder='password'
-                  name='password1'
-                  value={password1}
-                  onChange={onChangeInput}
-                />
-                <Input
-                  type='password'
-                  placeholder='confirm password'
-                  name='password2'
-                  value={password2}
-                  onChange={onChangeInput}
-                />
-                <br />
-                <Button
-                  onClick={onSubmit}
-                  label='Sign Up'
-                  active={true}
-                />
-              </div>
-            : <h2>
-                Please log out before creating a new account.
-              </h2>
-        }
-       
+        <div>
+          <h2>Sign Up!</h2>
+          <Input
+            type='email'
+            placeholder='email'
+            name='email'
+            value={email}
+            onChange={onChangeInput}
+          />
+          <Input
+            type='password'
+            placeholder='password'
+            name='password1'
+            value={password1}
+            onChange={onChangeInput}
+          />
+          <Input
+            type='password'
+            placeholder='confirm password'
+            name='password2'
+            value={password2}
+            onChange={onChangeInput}
+          />
+          <br />
+          <Button
+            onClick={onSubmit}
+            label='Sign Up'
+            active={true}
+          />
+        </div>
       </div>
     );
   }
 }
 
-const mapState = ({ user }) => {
-  return {
-    loggedIn: !!user.id
-  }
-};
+const mapState = null;
 
 const mapDispatch = dispatch => {
   return {

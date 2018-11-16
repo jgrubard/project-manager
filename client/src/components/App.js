@@ -3,7 +3,6 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUsersFromServer, getUserFromToken } from '../../redux';
 
-import MainLoginSignup from './Authentication/MainLoginSignup';
 import Nav from './Nav';
 import Home from './Home';
 import AllProjects from './Projects/AllProjects';
@@ -21,8 +20,7 @@ class App extends Component {
         <div>
           <Nav />
           <div className='main-container'>
-          <Route exact path='/' render={({ history }) => <Home history={ history } />} />
-            {/* <Route exact path='/' render={({ history }) => <MainLoginSignup history={ history } />} /> */}
+            <Route exact path='/' render={({ history }) => <Home history={ history } />} />
             <Route exact path='/projects' render={() => <AllProjects />} />
           </div>
         </div>

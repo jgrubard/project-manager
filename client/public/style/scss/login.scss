@@ -13,6 +13,8 @@ $background-color: rgb(184, 221, 184);
   box-shadow: 0px 0px 6px rgba(80, 80, 80, 0.5);
 }
 
+
+
 .login-toggle {
   width: 110px;
   background-color: $normal-button;
@@ -32,6 +34,23 @@ $background-color: rgb(184, 221, 184);
   &:focus {
     outline: 0;
   };
+}
+
+.long {
+  width: 175px;
+}
+
+.x-button {
+  position: fixed;
+  // color: red;
+  margin-left: 385px;
+  margin-top: -15px;
+  // float: right;
+  // right: 0;
+}
+
+.square {
+  width: 30px;
 }
 
 .active {

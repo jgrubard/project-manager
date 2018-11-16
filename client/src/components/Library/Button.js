@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Button = ({ onClick, label, active }) => {
+const Button = ({ onClick, label, active, long }) => {
   return (
     <button
-      className={`login-toggle${ active ? ' active' : ''}`}
+      className={`login-toggle${ active ? ' active' : ''}${ long ? ' long' : ''}`}
       onClick={onClick}
     >
       {label}

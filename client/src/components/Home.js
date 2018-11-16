@@ -1,8 +1,5 @@
 import React from 'react';
 
-import LoginState from './Authentication/LoginState';
-import SignupState from './Authentication/SignupState';
-
 const Home = () => {
   return (
     <div>
@@ -32,6 +29,6 @@ const lorem = [
   'In rutrum massa nec libero eleifend, sit amet tincidunt quam lobortis. Pellentesque dapibus scelerisque justo id auctor. Nunc tempor facilisis justo, ut fermentum felis tincidunt nec. Aliquam egestas porta fringilla. Donec facilisis urna sapien. Mauris interdum sapien viverra libero facilisis pharetra. Donec in magna nec libero consectetur luctus quis eu est. Duis at vulputate tellus, in fringilla nisi. Curabitur commodo finibus rhoncus. Morbi euismod egestas odio, eget mattis quam egestas quis. Nam cursus velit a metus placerat, ac sodales sapien euismod. Morbi non leo quis nisl rutrum auctor. Duis tincidunt nisl ac sem lobortis sodales.',
   
   'Curabitur vitae porttitor libero. Duis facilisis ante vitae urna fringilla pellentesque. Donec arcu nisi, volutpat id faucibus eget, sollicitudin vitae augue. Morbi tristique, velit vel accumsan accumsan, tortor enim hendrerit ligula, eu interdum odio nunc sed est. Morbi aliquet maximus magna vitae posuere. Maecenas pellentesque ligula id auctor tempus. Nunc eget rhoncus orci. Aliquam erat volutpat.',
-  
+
   'Fusce ac imperdiet sem. Aenean aliquet vel tortor auctor ullamcorper. Aliquam maximus suscipit mauris, sit amet tincidunt tortor convallis eu. Morbi consequat est vel maximus tincidunt. Sed eu dolor a velit tempor pulvinar. Cras vel leo vel mauris imperdiet gravida. Nam fringilla purus ut dignissim commodo. Sed dictum eu tellus consequat dictum. Fusce pharetra egestas nibh, vehicula dictum neque elementum et. Proin tincidunt commodo nulla id dapibus. Maecenas condimentum nunc vel ex consequat, venenatis cursus eros faucibus.'
 ];
