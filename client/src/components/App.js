@@ -14,7 +14,6 @@ class App extends Component {
     loadUsers();
   }
   render() {
-    const { user } = this.props;
     return(
       <Router>
         <div>
@@ -29,7 +28,7 @@ class App extends Component {
   }
 }
 
-const mapState = ({ user }) => ({ user });
+const mapState = null;
 
 const mapDispatch = dispatch => {
   return {

@@ -47,7 +47,7 @@ class LoginSignupModal extends Component {
                   active={section === 'signup'}
                 />
               </div>
-              { section === 'login' && <LoginState history={history}/> }
+              { section === 'login' && <LoginState history={history} loggedIn={this.props.loggedIn}/> }
               { section === 'signup' && <SignupState /> }
             </div>
         }
@@ -57,21 +57,6 @@ class LoginSignupModal extends Component {
 }
 
 const mapState = (state, { history }) => ({ history });
-
 const mapDispatch = null;
 
 export default connect(mapState, mapDispatch)(LoginSignupModal);
-
-/*        <div className='toggle-container'>
-          <Button
-            // onClick={() => toggleSection('login')}
-            onClick={() => openModal('loginModalOpen')}
-            label='Log In'
-            active={ section === 'login'}
-          />
-          <Button
-            onClick={() => toggleSection('signup')}
-            label='Sign Up'
-            active={section === 'signup'}
-          />
-        </div> */

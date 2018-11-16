@@ -31,7 +31,7 @@ class Nav extends Component {
     const { modalOpen } = this.state;
     const { user, loggedIn } = this.props;
     return (
-      <div>
+      <div className={`${modalOpen ? 'modal-bg' : ''}`}>
         <div className='nav'>
           <div className='nav-brand'>
             <Link className='nav-brand-link' to='/'>
@@ -54,7 +54,7 @@ class Nav extends Component {
             !loggedIn &&
               <div className='nav-item'>
                 <Button
-                  onClick={openModal}
+                  onClick={!!modalOpen ? closeModal : openModal}
                   label='Login/Signup'
                   active={true}
                   long={true}
@@ -65,7 +65,7 @@ class Nav extends Component {
         {
           !loggedIn && !!modalOpen &&
             <div className='modal-container'>
-              <LoginSignupModal modalOpen={modalOpen} closeModal={closeModal} />
+              <LoginSignupModal modalOpen={modalOpen} closeModal={closeModal} loggedIn={!loggedIn}/>
             </div>
         }
       </div>

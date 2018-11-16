@@ -2,9 +2,12 @@ import React from 'react';
 
 const Home = () => {
   return (
+    // <div className={`home${ modalOpen ? 'home-modal' : ''}`}>
     <div>
-      <h2>Project Manager</h2>
-      { lorem.map((p, i) => <p style={{ margin: '10' }} key={i}>{p}</p>) }
+      <div style={{ padding: '10', marginTop: '75px' }}>
+        <h2>Project Manager</h2>
+        { lorem.map((p, i) => <p style={{ margin: '10 0' }} key={i}>{p}</p>) }
+      </div>
     </div>
   );
 }

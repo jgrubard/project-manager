@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 
 app.post('/login', async (req, res, next) => {
+  const error = { status: 401 }
   try {
     const { email, password } = req.body;
     const hash = await User.findPassword(email);
@@ -13,7 +14,8 @@ app.post('/login', async (req, res, next) => {
       const token = await User.authenticate(email, hash);
       return res.send(token);
     }
-    res.sendStatus(401);
+    res.sendStatus(error.status);
+    throw error;
   } catch(err) {
     console.log('ERROR AUTHENTICATING:', err);
   }
