@@ -29,7 +29,7 @@ class Nav extends Component {
   render() {
     const { openModal, closeModal } = this;
     const { modalOpen } = this.state;
-    const { user, loggedIn } = this.props;
+    const { user: { id, email }, loggedIn } = this.props;
     return (
       <div className={`${modalOpen ? 'modal-bg' : ''}`}>
         <div className='nav'>
@@ -47,7 +47,15 @@ class Nav extends Component {
           {
             loggedIn &&
               <div className='nav-item nav-text'>
-                {user.email}
+                <Link className='nav-link' to={`/${id}/dashboard`}>
+                  Dashboard
+                </Link>
+              </div>
+          }
+          {
+            loggedIn &&
+              <div className='nav-item nav-text'>
+                {email}
               </div>
           }
           {

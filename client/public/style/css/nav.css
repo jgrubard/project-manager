@@ -16,6 +16,16 @@
   text-decoration: none;
   font-size: 14pt;
   font-weight: bold; }
+  .nav-brand-link:hover {
+    color: #1f861f; }
+
+.nav-link {
+  color: darkgreen;
+  text-decoration: none;
+  font-size: 12pt;
+  font-weight: bold; }
+  .nav-link:hover {
+    color: #1f861f; }
 
 .nav-item {
   float: right;

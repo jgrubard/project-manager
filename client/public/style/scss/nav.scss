@@ -1,5 +1,6 @@
 $background-color: rgb(184, 221, 184);
 $brand-color: rgb(0, 100, 0);
+$hover-link-color: rgb(31, 134, 31);
 
 .nav {
   padding: 0;
@@ -21,6 +22,19 @@ $brand-color: rgb(0, 100, 0);
   text-decoration: none;
   font-size: 14pt;
   font-weight: bold;
+  &:hover {
+    color: $hover-link-color;
+  }
+}
+
+.nav-link {
+  color: $brand-color;
+  text-decoration: none;
+  font-size: 12pt;
+  font-weight: bold;
+  &:hover {
+    color: $hover-link-color;
+  }
 }
 
 .nav-item {

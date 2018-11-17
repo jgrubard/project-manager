@@ -13,8 +13,8 @@ export const signup = (credentials) => async dispatch => {
     const user = await dispatch(getUserFromToken(token));
     await dispatch(addUser(user));
   } catch(err) {
-    const errors = err.response.data.errors;
-    errors.forEach(error => console.log(error.value, '--', error.message));
+    console.log(err);
+    window.localStorage.removeItem('token');
   }
 
 }
@@ -31,11 +31,16 @@ export const attemptLogin = (credentials, history) => async dispatch => {
 }
 
 export const getUserFromToken = (token, history) => async dispatch => {
-  const response = await axios.get(`/api/sessions/${token}`)
-  const user = response.data;
-  await dispatch(gotUser(user));
-  if(history) history.push(`${user.id}/dashboard`);
-  return user;
+  try {
+    const response = await axios.get(`/api/sessions/${token}`)
+    const user = await response.data;
+    dispatch(gotUser(user));
+    if(history) history.push(`/${user.id}/dashboard`);
+    // return user;
+  } catch(err) {
+    console.log(err);
+    window.localStorage.removeItem('token');
+  }
 }
 
 export const logoutUser = (history) => dispatch => {

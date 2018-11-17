@@ -5,8 +5,10 @@ import { fetchUsersFromServer, getUserFromToken } from '../../redux';
 
 import Nav from './Nav';
 import Home from './Home';
+
 import AllProjects from './Projects/AllProjects';
-import Dashboard from './DashBoard/Dashboard';
+import Dashboard from './MainDashboard/Dashboard';
+import AuthRoute from './Authorization/AuthRoute';
 
 class App extends Component {
   componentDidMount() {
@@ -15,14 +17,18 @@ class App extends Component {
     loadUsers();
   }
   render() {
-    return(
+
+    const AuthDashboard = AuthRoute(Dashboard);
+
+
+    return (
       <Router>
         <div>
           <Nav />
           <div className='main-container'>
             <Route exact path='/' render={({ history }) => <Home history={ history } />} />
-            <Route exact path='/projects' render={() => <AllProjects />} />
-            <Route exact path='/:id/dashboard' render={({ match }) => <Dashboard id={match.params.id}/>} />
+            <Route exact path='/:id/dashboard' render={({ match }) => <AuthDashboard id={match.params.id} />} />
+            <Route exact path='/:id/projects' render={() => <AllProjects />} />
           </div>
         </div>
       </Router>
@@ -30,7 +36,7 @@ class App extends Component {
   }
 }
 
-const mapState = null;
+const mapState = ({ user }) => ({ loggedIn: !!user.id });
 
 const mapDispatch = dispatch => {
   return {

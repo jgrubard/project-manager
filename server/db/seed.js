@@ -8,14 +8,8 @@ const salt = bcrypt.genSaltSync(10);
 const jeremyPassword = bcrypt.hashSync(process.env.JG_PW, salt);
 const suPassword = bcrypt.hashSync(process.env.SS_PW, salt);
 
-const seed = async () => {
-
-  await conn.sync({ force: true });
-
-  console.log('1. database synced');
-  console.log('2. seeding data');
-
-  const users = await Promise.all([
+const seed = () => {
+  return Promise.all([
     User.create({
       email: 'jgrubard@gmail.com',
       password: jeremyPassword
@@ -25,20 +19,38 @@ const seed = async () => {
       password: suPassword
     })
   ]);
-
-  console.log(`3. seeded ${users.length} users!`);
 }
 
-seed()
+console.log('1. syncing database');
+
+conn.sync({ force: true })
   .then(() => {
-    console.log('4. closing connection');
+    console.log('2. database synced');
+    console.log('3. seeding database');
+    return seed();
+  })
+  .then(() => console.log('4. database seeded'))
+  .then(() => {
+    console.log('5. closing connection');
     conn.close();
-    console.log('5. connection closed');
+    console.log('6. connection closed');
   })
   .catch(err => {
-    console.log('ERROR: database not seeded');
+    console.log('uh-oh, there was an error seeding!')
     console.log(err);
-  });
+  })
+
+
+// seed()
+//   .then(() => {
+//     console.log('4. closing connection');
+//     conn.close();
+//     console.log('5. connection closed');
+//   })
+//   .catch(err => {
+//     console.log('ERROR: database not seeded');
+//     console.log(err);
+//   });
 
 
 
