@@ -1,3 +1,26 @@
+$background-color: rgb(184, 221, 184);
+$font-color: rgb(0, 100, 0);
+
 .dashboard-container {
-  padding: 85 10;
+  padding-top: 85px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 100%;
+}
+
+.dash-nav-container {
+  padding: 10px;
+  margin: 10 0;
+  background-color: $background-color;
+  color: $font-color;
+}
+
+.dash-nav-item {
+  display: inline;
+  margin-right: 30px;
+}
+
+.project-name {
+  float: right;
+  margin-right: 0px;
 }

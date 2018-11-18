@@ -4,7 +4,7 @@ class AllProjects extends Component {
   render() {
     return (
       <div>
-      <div style={{ padding: '10', marginTop: '75px' }}>
+      <div style={{ padding: '10', marginTop: '10px' }}>
         <h2>All Projects</h2>
       </div>
     </div>
