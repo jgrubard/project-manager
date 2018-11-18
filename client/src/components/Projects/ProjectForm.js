@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { Button, Input } from '../Library';
+import { createProjectOnServer } from '../../../redux';
+
 
 class ProjectForm extends Component {
   constructor() {
@@ -19,7 +22,9 @@ class ProjectForm extends Component {
 
   onSubmit(ev) {
     ev.preventDefault();
-    console.log(this.state.name);
+    const { createProject, userId } = this.props;
+    const { name } = this.state;
+    createProject({ name }, userId);
     this.setState({ name: '' });
   }
 
@@ -45,4 +50,12 @@ class ProjectForm extends Component {
   }
 }
 
-export default ProjectForm;
+const mapState = ({ user }) => ({ userId: user.id });
+
+const mapDispatch = dispatch => {
+  return {
+    createProject: (project, userId) => dispatch(createProjectOnServer(project, userId))
+  }
+}
+
+export default connect(mapState, mapDispatch)(ProjectForm);

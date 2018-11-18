@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 // import DashNav from './DashNav';
 import AllProjects from '../Projects/AllProjects';
+
+import { fetchProjectsFromServer } from '../../../redux';
 
 class Dashboard extends Component {
   constructor() {
@@ -9,6 +12,11 @@ class Dashboard extends Component {
     this.state = {
       pageLoad: 'projects'
     }
+  }
+
+  componentDidMount() {
+    const { loadProjects, userId } = this.props;
+    loadProjects(userId);
   }
 
   render() {
@@ -42,7 +50,15 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapState = ({ user }) => ({ userId: user.id });
+
+const mapDispatch = dispatch => {
+  return {
+    loadProjects: (userId) => dispatch(fetchProjectsFromServer(userId))
+  }
+}
+
+export default connect(mapState, mapDispatch)(Dashboard);
 
 
 /* 
