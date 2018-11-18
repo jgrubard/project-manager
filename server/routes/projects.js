@@ -21,3 +21,13 @@ app.post('/:userId', async (req, res, next) => {
     next(err);
   }
 });
+
+app.delete('/:userId/:projectId', async (req, res, next) => {
+  const { userId, projectId } = req.params;
+  try {
+    await Project.deleteAndDisassociate(userId, projectId);
+    res.sendStatus(204);
+  } catch(err) {
+    next(err);
+  }
+});

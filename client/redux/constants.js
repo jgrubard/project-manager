@@ -4,3 +4,5 @@ export const GOT_USER = 'GOT_USER';
 
 export const FETCH_PROJECTS = 'FETCH_PROJECTS';
 export const CREATE_PROJECT = 'CREATE_PROJECT';
+
+export const DELETE_PROJECT = 'DELETE_PROJECT';

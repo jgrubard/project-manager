@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-import { FETCH_PROJECTS, CREATE_PROJECT } from './constants';
+import { FETCH_PROJECTS, CREATE_PROJECT, DELETE_PROJECT } from './constants';
 
 const fetchProjects = projects => ({ type: FETCH_PROJECTS, projects });
 const createProject = project => ({ type: CREATE_PROJECT, project });
+
+const deleteProject = id => ({ type: DELETE_PROJECT, id })
 
 export const fetchProjectsFromServer = (userId) => async dispatch => {
   if(!userId) return null;
@@ -17,7 +19,6 @@ export const fetchProjectsFromServer = (userId) => async dispatch => {
 }
 
 export const createProjectOnServer = (proj, userId) => async dispatch => {
-  console.log(proj, userId)
   try {
     const response = await axios.post(`/api/projects/${userId}`, proj);
     const project = response.data;
@@ -27,12 +28,23 @@ export const createProjectOnServer = (proj, userId) => async dispatch => {
   }
 }
 
+export const deleteProjectFromServer = (projectId, userId) => async dispatch => {
+  try {
+    await axios.delete(`/api/projects/${userId}/${projectId}`)
+    dispatch(deleteProject(projectId));
+  } catch(err) {
+    next(err);
+  }
+}
+
 const store = (state = [], action) => {
   switch(action.type) {
     case FETCH_PROJECTS:
       return action.projects;
     case CREATE_PROJECT:
       return [ ...state, action.project ];
+    case DELETE_PROJECT:
+      return state.filter(project => project.id !== action.id);
     default:
       return state;
   }
