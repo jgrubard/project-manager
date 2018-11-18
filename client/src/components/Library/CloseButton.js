@@ -3,7 +3,7 @@ import React from 'react';
 const CloseButton = ({ onClick, label, active }) => {
   return (
     <button
-      className='login-toggle active square'
+      className='button button-square'
       onClick={onClick}
     >
       {label}

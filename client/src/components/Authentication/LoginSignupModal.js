@@ -23,35 +23,32 @@ class LoginSignupModal extends Component {
     const { section } = this.state;
     const { modalOpen, closeModal } = this.props;
     const { toggleSection } = this;
+    if(!modalOpen) return null
     return (
-      <div>
-        {
-          modalOpen &&
-            <div className='login-container'>
-              <div className='x-button'> 
-                <CloseButton
-                  onClick={closeModal}
-                  label='X'
-                  active={true}
-                />
-              </div>
-              <div className='toggle-container'>
-                <Button
-                  onClick={() => toggleSection('login')}
-                  label='Log In'
-                  active={ section === 'login'}
-                />
-                <Button
-                  onClick={() => toggleSection('signup')}
-                  label='Sign Up'
-                  active={section === 'signup'}
-                />
-              </div>
-              { section === 'login' && <LoginState /> }
-              { section === 'signup' && <SignupState /> }
-            </div>
-        }
-      </div>
+      modalOpen &&
+        <div className='modal-container'>
+          <div className='button-close'> 
+            <CloseButton
+              onClick={closeModal}
+              label='X'
+              active={true}
+            />
+          </div>
+          <div className='toggle-container'>
+            <Button
+              onClick={() => toggleSection('login')}
+              label='Log In'
+              active={ section === 'login'}
+            />
+            <Button
+              onClick={() => toggleSection('signup')}
+              label='Sign Up'
+              active={section === 'signup'}
+            />
+          </div>
+          { section === 'login' && <LoginState /> }
+          { section === 'signup' && <SignupState /> }
+        </div>
     );
   }
 }

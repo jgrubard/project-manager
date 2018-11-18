@@ -3,7 +3,7 @@ import React from 'react';
 const Button = ({ onClick, label, active, long }) => {
   return (
     <button
-      className={`login-toggle${ active ? ' active' : ''}${ long ? ' long' : ''}`}
+      className={`button${ active ? '' : ' button-inactive'}${ long ? ' button-long' : ''}`}
       onClick={onClick}
     >
       {label}
