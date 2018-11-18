@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ProjectForm from './ProjectForm';
 
 class AllProjects extends Component {
   render() {
@@ -6,6 +7,7 @@ class AllProjects extends Component {
       <div>
       <div style={{ padding: '10', marginTop: '10px' }}>
         <h2>All Projects</h2>
+        <ProjectForm />
       </div>
     </div>
     );
