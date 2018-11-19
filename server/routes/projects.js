@@ -22,6 +22,18 @@ app.post('/:userId', async (req, res, next) => {
   }
 });
 
+app.put('/:userId/:projectId', async (req, res, next) => {
+  const { userId, projectId } = req.params;
+  try {
+    const project = await Project.findById(projectId);
+    const final = await Object.assign(project, req.body);
+    const proj = await final.save();
+    res.send(proj);
+  } catch(err) {
+    next(err);
+  }
+});
+
 app.delete('/:userId/:projectId', async (req, res, next) => {
   const { userId, projectId } = req.params;
   try {

@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-import { FETCH_PROJECTS, CREATE_PROJECT, DELETE_PROJECT } from './constants';
+import { FETCH_PROJECTS, CREATE_PROJECT, UPDATE_PROJECT, DELETE_PROJECT } from './constants';
 
 const fetchProjects = projects => ({ type: FETCH_PROJECTS, projects });
 const createProject = project => ({ type: CREATE_PROJECT, project });
-
-const deleteProject = id => ({ type: DELETE_PROJECT, id })
+const updateProject = project => ({ type: UPDATE_PROJECT, project });
+const deleteProject = id => ({ type: DELETE_PROJECT, id });
 
 export const fetchProjectsFromServer = (userId) => async dispatch => {
   if(!userId) return null;
@@ -28,6 +28,16 @@ export const createProjectOnServer = (proj, userId) => async dispatch => {
   }
 }
 
+export const updateProjectOnServer = (proj, userId) => async dispatch => {
+  try {
+    const response = await axios.put(`/api/projects/${userId}/${proj.id}`, proj);
+    const project = response.data;
+    dispatch(updateProject(project));
+  } catch(err) {
+    console.log('ERROR UPDATING PROJECT', err);
+  }
+}
+
 export const deleteProjectFromServer = (projectId, userId) => async dispatch => {
   try {
     await axios.delete(`/api/projects/${userId}/${projectId}`)
@@ -43,6 +53,9 @@ const store = (state = [], action) => {
       return action.projects;
     case CREATE_PROJECT:
       return [ ...state, action.project ];
+    case UPDATE_PROJECT:
+      const projects = state.filter(project => project.id !== action.project.id)
+      return [ ...projects, action.project ];
     case DELETE_PROJECT:
       return state.filter(project => project.id !== action.id);
     default:

@@ -10,28 +10,30 @@ class AllProjects extends Component {
   constructor() {
     super();
     this.state = {
-      isEditing: false
+      isEditing: false,
+      project: ''
     }
     this.toggleModal = this.toggleModal.bind(this);
   }
 
-  toggleModal() {
+  toggleModal(project) {
     const  { isEditing } = this.state;
-    this.setState({ isEditing: !isEditing });
+    project ? project : '';
+    this.setState({ isEditing: !isEditing, project });
   }
 
   render() {
     const { projects, deleteProject, userId } = this.props;
-    const { isEditing } = this.state;
+    const { isEditing, project } = this.state;
     const { toggleModal } = this;
-    // console.log(isEditing);
+    // console.log(this.state.project);
     return (
       <div>
       <div style={{ padding: '10', marginTop: '10px' }}>
         <h2>All Projects</h2>
         {
           isEditing &&
-            <EditProject toggleModal={toggleModal} />
+            <EditProject toggleModal={toggleModal} project={project}/>
         }
         <ProjectForm />
         {
@@ -41,7 +43,7 @@ class AllProjects extends Component {
                 {p.name}
                 <Button
                   label='Edit'
-                  onClick={toggleModal}
+                  onClick={() => toggleModal(p)}
                   active={true}
                 />
                 <Button
