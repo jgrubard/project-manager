@@ -35,15 +35,16 @@ class AllProjects extends Component {
         }
         <ProjectForm />
         {
-          projects.map(p => {
+          projects.map((p, i) => {
+            const color = i % 2 === 0 ? 'row-color-white' : 'row-color-none';
             return (
-              <div key={p.id}>
-                {p.name}
+              <div key={p.id} className={color}>
                 <Button
                   label='Edit'
                   onClick={() => toggleModal(p)}
                   active={true}
                 />
+                <span className='project-name-margin'>{p.name}</span>
               </div>
             );
           })

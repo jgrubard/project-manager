@@ -17,3 +17,14 @@
 .project-name {
   float: right;
   margin-right: 0px; }
+
+.row-color-white {
+  padding: 10px;
+  background-color: #fafafa; }
+
+.row-color-none {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0); }
+
+.project-name-margin {
+  margin-left: 20px; }

@@ -28,7 +28,7 @@ class App extends Component {
           <div className='main-container'>
             <Route exact path='/' render={({ history }) => <Home history={ history } />} />
             <Route exact path='/:id/dashboard' render={({ match }) => <AuthDashboard id={match.params.id} />} />
-            <Route exact path='/:id/projects' render={() => <AllProjects />} />
+            {/* <Route exact path='/:id/projects' render={() => <AllProjects />} /> */}
           </div>
         </div>
       </Router>

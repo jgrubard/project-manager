@@ -17,6 +17,10 @@ const seed = () => {
     User.create({
       email: 'su@gmail.com',
       password: suPassword
+    }),
+    User.create({
+      email: 'mario@gmail.com',
+      password: 'mario'
     })
   ]);
 }

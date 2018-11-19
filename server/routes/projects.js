@@ -1,5 +1,5 @@
 const app = require('express').Router();
-const { Project, User, UserProject } = require('../db').models;
+const { Project } = require('../db').models;
 module.exports = app;
 
 app.get('/:userId', async (req, res, next) => {
@@ -24,11 +24,13 @@ app.post('/:userId', async (req, res, next) => {
 
 app.put('/:userId/:projectId', async (req, res, next) => {
   const { userId, projectId } = req.params;
+  const { proj, userIds } = req.body;
   try {
     const project = await Project.findById(projectId);
-    const final = await Object.assign(project, req.body);
-    const proj = await final.save();
-    res.send(proj);
+    const final = await Object.assign(project, proj);
+    await final.save();
+    final.addUsers(userIds);
+    res.send(final);
   } catch(err) {
     next(err);
   }

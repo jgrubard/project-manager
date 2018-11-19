@@ -28,9 +28,10 @@ export const createProjectOnServer = (proj, userId) => async dispatch => {
   }
 }
 
-export const updateProjectOnServer = (proj, userId) => async dispatch => {
+export const updateProjectOnServer = (proj, userId, userIds) => async dispatch => {
+  console.log(proj, userId, userIds)
   try {
-    const response = await axios.put(`/api/projects/${userId}/${proj.id}`, proj);
+    const response = await axios.put(`/api/projects/${userId}/${proj.id}`, { proj, userIds });
     const project = response.data;
     dispatch(updateProject(project));
   } catch(err) {
