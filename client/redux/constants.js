@@ -8,8 +8,3 @@ export const UPDATE_PROJECT = 'UPDATE_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
 
 export const FETCH_USER_PROJECTS = 'FETCH_USER_PROJECTS';
-
-
-
-
-

@@ -12,7 +12,8 @@ class EditProject extends Component {
     this.state = {
       id: undefined,
       name: '',
-      usersToAdd: []
+      usersToAdd: [],
+      usersToRemove: []
     }
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -28,9 +29,12 @@ class EditProject extends Component {
   onSubmit(ev) {
     ev.preventDefault();
     const { project: { id }, updateProject, userId, toggleModal } = this.props;
-    const { name, usersToAdd } = this.state;
-    const userIds = usersToAdd.map(user => user.id);
-    updateProject({ id, name }, userId, userIds);
+    const { name, usersToAdd, usersToRemove } = this.state;
+    const addUserIds = usersToAdd.map(user => user.id);
+    // console.log('ON SUBMIT', usersToAdd, usersToRemove); // works here
+    const removeUserIds = usersToRemove.map(user => user.id);
+    // console.log('ON SUBMIT', addUserIds, removeUserIds); // works here
+    updateProject({ id, name }, userId, addUserIds, removeUserIds);
     toggleModal();
   }
 
@@ -40,9 +44,13 @@ class EditProject extends Component {
   }
 
   removeUser(userId) {
-    const { usersToAdd } = this.state;
+    const { usersToAdd, usersToRemove } = this.state;
     const users = usersToAdd.filter(user => user.id !== userId);
-    this.setState({ usersToAdd: users });
+    const user = usersToAdd.find(user => user.id === userId)
+    this.setState({
+      usersToRemove: [ ...usersToRemove, user ],
+      usersToAdd: users
+    });
   }
 
   async componentDidMount() {
@@ -63,8 +71,10 @@ class EditProject extends Component {
 
   render() {
     const { toggleModal, project, deleteProject, userId } = this.props;
-    const { name, usersToAdd } = this.state;
+    const { name, usersToAdd, usersToRemove } = this.state;
     const { handleChange, onSubmit, addUser, removeUser } = this;
+    console.log('USERS TO ADD:', usersToAdd);
+    console.log('USERS TO REMOVE:', usersToRemove);
     return (
       <div className='modal-container modal-project'>
         <div className='button-close'>
@@ -121,10 +131,10 @@ class EditProject extends Component {
   }
 }
 
-const mapState = ({ user, users }) => ({ userId: user.id, users });
+const mapState = ({ user }) => ({ userId: user.id });
 const mapDispatch = dispatch => {
   return {
-    updateProject: (project, userId, userIds) => dispatch(updateProjectOnServer(project, userId, userIds)),
+    updateProject: (project, userId, usersToAdd, usersToRemove) => dispatch(updateProjectOnServer(project, userId, usersToAdd, usersToRemove)),
     deleteProject: async (projectId, userId, toggleModal) => {
       dispatch(deleteProjectFromServer(projectId, userId));
       await toggleModal();
