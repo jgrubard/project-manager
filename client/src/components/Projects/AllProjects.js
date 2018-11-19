@@ -22,7 +22,7 @@ class AllProjects extends Component {
   }
 
   render() {
-    const { projects } = this.props;
+    const { projects, loadProject } = this.props;
     const { isEditing, project } = this.state;
     const { toggleModal } = this;
     return (
@@ -40,9 +40,17 @@ class AllProjects extends Component {
             return (
               <div key={p.id} className={color}>
                 <Button
-                  label='Edit'
+                  label='project settings'
                   onClick={() => toggleModal(p)}
                   active={true}
+                  long={true}
+                  type='info'
+                />
+                <Button
+                  label='launch project'
+                  onClick={() => loadProject(p)}
+                  active={true}
+                  long={true}
                 />
                 <span className='project-name-margin'>{p.name}</span>
               </div>

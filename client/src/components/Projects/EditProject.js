@@ -95,11 +95,6 @@ class EditProject extends Component {
           value={name}
           onChange={handleChange}
         />
-        <Button
-          onClick={onSubmit}
-          label='submit'
-          active={true}
-        />
         <br />
         <br />
         <AddUserToProject addUser={addUser} />
@@ -117,6 +112,7 @@ class EditProject extends Component {
                         label='remove'
                         onClick={() => removeUser(user.id)}
                         active={true}
+                        type={'danger'}
                       />
                     )
                   }
@@ -129,10 +125,17 @@ class EditProject extends Component {
         }
         <br />
         <Button
+          onClick={onSubmit}
+          label='submit changes'
+          active={true}
+          long={true}
+        />
+        <Button
           label='Delete Project'
           onClick={() => deleteProject(project.id, userId, toggleModal)}
           active={true}
           long={true}
+          type={'danger'}
         />
       </div>
     );
