@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Input, Button, CloseButton } from '../Library';
-import { updateProjectOnServer, deleteProjectFromServer } from '../../../redux';
+import { updateProjectOnServer, deleteProjectFromServer, getAllUsersOnProjectFromServer } from '../../../redux';
 
 import AddUserToProject from './AddUserToProject';
 
@@ -45,21 +45,28 @@ class EditProject extends Component {
     this.setState({ usersToAdd: users });
   }
 
-  componentDidMount() {
-    const { project } = this.props;
+  async componentDidMount() {
+    const { project, userId, users, loadProjectUsers } = this.props;
     if(project) {
       const { name, id } = project;
       this.setState({ id, name });
+      const userProjects = await loadProjectUsers(id, userId);
+      const ownUsers = userProjects.reduce((memo, proj) => {
+        const user = users.find(user => user.id === proj.userId && userId !== user.id);
+        if(user) memo.push(user);
+        return memo;
+      }, []);
+      this.setState({ usersToAdd: ownUsers });
     }
+
   }
 
   render() {
     const { toggleModal, project, deleteProject, userId } = this.props;
     const { name, usersToAdd } = this.state;
     const { handleChange, onSubmit, addUser, removeUser } = this;
-    console.log(this.state.usersToAdd);
     return (
-      <div className='modal-container'>
+      <div className='modal-container modal-project'>
         <div className='button-close'>
           <CloseButton
             onClick={toggleModal}
@@ -67,7 +74,10 @@ class EditProject extends Component {
             active={true}
           />
         </div>
-        <h4>Edit Project:</h4>
+        <h2>Edit Project: <i>{project.name}</i></h2>
+        <br />
+        Change Project Name
+        <br />
         <Input
           placeholder='Project Name'
           name='name'
@@ -79,39 +89,47 @@ class EditProject extends Component {
           label='submit'
           active={true}
         />
+        <br />
+        <br />
         <AddUserToProject addUser={addUser} />
         {
-          usersToAdd.map(user => {
+          usersToAdd.map((user, i) => {
+            const color = i % 2 === 0 ? ' user-list-white' : ' user-list-offwhite';
             return (
-              <div key={user.id}>
-                { user.email }
-                < Button
-                  label='remove'
-                  onClick={() => removeUser(user.id)}
-                  active={true}
-                />
+              <div key={user.id} className={`user-list${color}`}>
+                <div className='name-remove-pair'>
+                  < Button
+                    label='remove'
+                    onClick={() => removeUser(user.id)}
+                    active={true}
+                  />
+                  <span className='name-space'>{user.email}</span>
+                </div>
               </div>
             );
           })
         }
+        <br />
         <Button
-          label='Delete'
+          label='Delete Project'
           onClick={() => deleteProject(project.id, userId, toggleModal)}
           active={true}
+          long={true}
         />
       </div>
     );
   }
 }
 
-const mapState = ({ user }) => ({ userId: user.id });
+const mapState = ({ user, users }) => ({ userId: user.id, users });
 const mapDispatch = dispatch => {
   return {
     updateProject: (project, userId, userIds) => dispatch(updateProjectOnServer(project, userId, userIds)),
     deleteProject: async (projectId, userId, toggleModal) => {
       dispatch(deleteProjectFromServer(projectId, userId));
       await toggleModal();
-    }
+    },
+    loadProjectUsers: (projectId, userId) => dispatch(getAllUsersOnProjectFromServer(projectId, userId))
   }
 };
 

@@ -10,3 +10,6 @@
   box-shadow: 0px 0px 6px rgba(80, 80, 80, 0.5);
   outline: none;
   text-align: center; }
+
+.modal-project {
+  top: 100px; }

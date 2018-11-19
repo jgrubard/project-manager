@@ -27,3 +27,28 @@ $active-button: rgb(0, 100, 0);
   padding-right: 10px;
   padding-left: 10px;
 }
+
+.user-list {
+  text-align: left;
+  // margin-top: 10px;
+  // margin-bottom: 10px;
+  // margin-left: 50px;
+}
+
+.user-list-white {
+  background-color: white;
+  padding: 10px;
+}
+
+.user-list-offwhite {
+  background-color: rgb(226, 226, 226);
+  padding: 10px;
+}
+
+.name-space {
+  margin-left: 15px;
+}
+
+.name-remove-pair {
+  margin-left: 50px;
+}

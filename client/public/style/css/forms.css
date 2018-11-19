@@ -20,3 +20,20 @@
   padding-top: 80px;
   padding-right: 10px;
   padding-left: 10px; }
+
+.user-list {
+  text-align: left; }
+
+.user-list-white {
+  background-color: white;
+  padding: 10px; }
+
+.user-list-offwhite {
+  background-color: #e2e2e2;
+  padding: 10px; }
+
+.name-space {
+  margin-left: 15px; }
+
+.name-remove-pair {
+  margin-left: 50px; }
