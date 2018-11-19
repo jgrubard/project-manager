@@ -29,7 +29,6 @@ export const createProjectOnServer = (proj, userId) => async dispatch => {
 }
 
 export const updateProjectOnServer = (proj, userId, usersToAdd, usersToRemove) => async dispatch => {
-  console.log(usersToAdd, usersToRemove)
   try {
     const response = await axios.put(`/api/projects/${userId}/${proj.id}`, { proj, usersToAdd, usersToRemove });
     const project = response.data;

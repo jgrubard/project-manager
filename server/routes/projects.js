@@ -25,16 +25,9 @@ app.post('/:userId', async (req, res, next) => {
 app.put('/:userId/:projectId', async (req, res, next) => {
   const { userId, projectId } = req.params;
   const { proj, usersToAdd, usersToRemove } = req.body;
-
-  console.log('update route', usersToAdd, usersToRemove);
-
   try {
-    const project = await Project.findById(projectId);
-    const final = await Object.assign(project, proj);
-    await final.save();
-    final.removeUsers(usersToRemove);
-    final.addUsers(usersToAdd);
-    res.send(final);
+    const project = await Project.updateAndManageAssociations(projectId, proj, usersToAdd, usersToRemove);
+    res.send(project);
   } catch(err) {
     next(err);
   }

@@ -13,7 +13,8 @@ class EditProject extends Component {
       id: undefined,
       name: '',
       usersToAdd: [],
-      usersToRemove: []
+      usersToRemove: [],
+      creatorId: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -55,26 +56,26 @@ class EditProject extends Component {
 
   async componentDidMount() {
     const { project, userId, users, loadProjectUsers } = this.props;
+    // const { creatorId } = this.state;
     if(project) {
       const { name, id } = project;
       this.setState({ id, name });
       const userProjects = await loadProjectUsers(id, userId);
+      const creatorId = userProjects.find(up => up.role === 'creator').userId;
       const ownUsers = userProjects.reduce((memo, proj) => {
         const user = users.find(user => user.id === proj.userId && userId !== user.id);
         if(user) memo.push(user);
         return memo;
       }, []);
-      this.setState({ usersToAdd: ownUsers });
+      this.setState({ usersToAdd: ownUsers, creatorId });
     }
 
   }
 
   render() {
     const { toggleModal, project, deleteProject, userId } = this.props;
-    const { name, usersToAdd, usersToRemove } = this.state;
+    const { name, usersToAdd, usersToRemove, creatorId } = this.state;
     const { handleChange, onSubmit, addUser, removeUser } = this;
-    console.log('USERS TO ADD:', usersToAdd);
-    console.log('USERS TO REMOVE:', usersToRemove);
     return (
       <div className='modal-container modal-project'>
         <div className='button-close'>
@@ -108,11 +109,18 @@ class EditProject extends Component {
             return (
               <div key={user.id} className={`user-list${color}`}>
                 <div className='name-remove-pair'>
-                  < Button
-                    label='remove'
-                    onClick={() => removeUser(user.id)}
-                    active={true}
-                  />
+                  {
+                    user.id === creatorId ? (
+                      <span className='creator-color'>Creator</span>
+                    ) : (
+                      <Button
+                        label='remove'
+                        onClick={() => removeUser(user.id)}
+                        active={true}
+                      />
+                    )
+                  }
+
                   <span className='name-space'>{user.email}</span>
                 </div>
               </div>
@@ -131,7 +139,13 @@ class EditProject extends Component {
   }
 }
 
-const mapState = ({ user }) => ({ userId: user.id });
+const mapState = ({ user, users }) => {
+  return {
+    userId: user.id,
+    users
+  }
+}
+
 const mapDispatch = dispatch => {
   return {
     updateProject: (project, userId, usersToAdd, usersToRemove) => dispatch(updateProjectOnServer(project, userId, usersToAdd, usersToRemove)),

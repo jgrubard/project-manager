@@ -21,6 +21,15 @@ Project.createAndAssociate = async function(userId, reqBody) {
   return project;
 }
 
+Project.updateAndManageAssociations = async function(projectId, proj, usersToAdd, usersToRemove) {
+  const project = await this.findById(projectId);
+  const final = await Object.assign(project, proj);
+  await final.save();
+  final.removeUsers(usersToRemove);
+  final.addUsers(usersToAdd);
+  return final;
+}
+
 Project.deleteAndDisassociate = async function(userId, projectId) {
   const userProjects = await conn.models.user_project.findAll({ where: { projectId }});
   const projectIds = userProjects.map(up => up.projectId);
