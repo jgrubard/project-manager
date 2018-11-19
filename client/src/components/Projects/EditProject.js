@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Input, Button, CloseButton } from '../Library';
-import { updateProjectOnServer } from '../../../redux';
+import { updateProjectOnServer, deleteProjectFromServer } from '../../../redux';
 
 class EditProject extends Component {
   constructor() {
@@ -37,7 +37,7 @@ class EditProject extends Component {
   }
 
   render() {
-    const { toggleModal } = this.props;
+    const { toggleModal, project, deleteProject, userId } = this.props;
     const { name } = this.state;
     const { handleChange, onSubmit } = this;
     return (
@@ -61,6 +61,11 @@ class EditProject extends Component {
           label='submit'
           active={true}
         />
+        <Button
+          label='Delete'
+          onClick={() => deleteProject(project.id, userId, toggleModal)}
+          active={true}
+        />
       </div>
     );
   }
@@ -69,7 +74,11 @@ class EditProject extends Component {
 const mapState = ({ user }) => ({ userId: user.id });
 const mapDispatch = dispatch => {
   return {
-    updateProject: (project, userId) => dispatch(updateProjectOnServer(project, userId))
+    updateProject: (project, userId) => dispatch(updateProjectOnServer(project, userId)),
+    deleteProject: async (projectId, userId, toggleModal) => {
+      dispatch(deleteProjectFromServer(projectId, userId));
+      await toggleModal();
+    }
   }
 };
 

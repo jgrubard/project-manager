@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import ProjectForm from './ProjectForm';
 import EditProject from './EditProject';
 import { Button } from '../Library';
-import { deleteProjectFromServer } from '../../../redux';
 
 class AllProjects extends Component {
   constructor() {
@@ -23,10 +22,9 @@ class AllProjects extends Component {
   }
 
   render() {
-    const { projects, deleteProject, userId } = this.props;
+    const { projects } = this.props;
     const { isEditing, project } = this.state;
     const { toggleModal } = this;
-    // console.log(this.state.project);
     return (
       <div>
       <div style={{ padding: '10', marginTop: '10px' }}>
@@ -46,11 +44,6 @@ class AllProjects extends Component {
                   onClick={() => toggleModal(p)}
                   active={true}
                 />
-                <Button
-                  label='Delete'
-                  onClick={() => deleteProject(p.id, userId)}
-                  active={true}
-                />
               </div>
             );
           })
@@ -63,10 +56,6 @@ class AllProjects extends Component {
 
 const mapState = ({ projects, user }) => ({ projects, userId: user.id });
 
-const mapDispatch = dispatch => {
-  return {
-    deleteProject: (projectId, userId) => dispatch(deleteProjectFromServer(projectId, userId))
-  }
-};
+const mapDispatch = null;
 
 export default connect(mapState, mapDispatch)(AllProjects);
