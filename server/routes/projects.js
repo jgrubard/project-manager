@@ -1,5 +1,5 @@
 const app = require('express').Router();
-const { Project } = require('../db').models;
+const { Project, Task } = require('../db').models;
 module.exports = app;
 
 app.get('/:userId', async (req, res, next) => {
@@ -38,6 +38,30 @@ app.delete('/:userId/:projectId', async (req, res, next) => {
   try {
     await Project.deleteAndDisassociate(userId, projectId);
     res.sendStatus(204);
+  } catch(err) {
+    next(err);
+  }
+});
+
+/* Task Routes */
+
+app.get('/:projectId/tasks', async (req, res, next) => {
+  const { projectId } = req.params;
+  // console.log(projectId);
+  try {
+    // console.log(await Task.findAll());
+    const tasks = await Task.findAll()
+    // console.log(tasks);
+    res.send(tasks);
+  } catch(err) {
+    next(err);
+  }
+});
+
+app.post('/:projectId/tasks', async (req, res, next) => {
+  try {
+    const task = await Task.create(req.body);
+    res.send(task);
   } catch(err) {
     next(err);
   }

@@ -2,8 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
-// const port = process.env.PORT || 3000;
-
 
 app.use('/vendor', express.static(path.join(__dirname, '../node_modules')));
 app.use('/public', express.static(path.join(__dirname, '../client/public')));

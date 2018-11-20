@@ -52,6 +52,10 @@ export const logoutUser = (history) => dispatch => {
 const store = (state = {}, action) => {
   switch(action.type) {
     case GOT_USER:
+      if(action.user === '') {
+        window.localStorage.removeItem('token');
+        return {};
+      }
       return action.user;
     default:
       return state;

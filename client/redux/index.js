@@ -6,9 +6,10 @@ import users from './users';
 import user from './user';
 import projects from './projects';
 import userProjects from './userProjects';
+import tasks from './tasks';
 
 const middleware = applyMiddleware(thunk, logger);
-const reducers = combineReducers({ user, users, projects, userProjects });
+const reducers = combineReducers({ user, users, projects, userProjects, tasks });
 
 const store = createStore(reducers, middleware);
 
@@ -18,3 +19,4 @@ export * from './users';
 export * from './user';
 export * from './projects';
 export * from './userProjects';
+export * from './tasks';
