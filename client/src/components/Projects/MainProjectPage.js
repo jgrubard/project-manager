@@ -42,10 +42,10 @@ class MainProjectPage extends Component {
           />
         </div>
         <div className='task-row'>
-          <TaskColumn name='New Tasks' colId={1} />
-          <TaskColumn name='In-Progress' colId={2} />
-          <TaskColumn name='Review' colId={3} />
-          <TaskColumn name='Completed' colId={4} />
+          <TaskColumn name='New Tasks' colId={1} projectId={project.id} />
+          <TaskColumn name='In-Progress' colId={2} projectId={project.id} />
+          <TaskColumn name='Review' colId={3} projectId={project.id} />
+          <TaskColumn name='Completed' colId={4} projectId={project.id} />
         </div>
         <div>
         {

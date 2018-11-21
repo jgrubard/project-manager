@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-const TaskColumn = ({ name, colId, ownTasks }) => {
+const TaskColumn = ({ name, colId, ownTasks, projectId }) => {
   // const { ownTasks } = props;
   return (
     <div className='task-col'>
@@ -12,6 +12,11 @@ const TaskColumn = ({ name, colId, ownTasks }) => {
           return (
             <div key={task.id} style={{ height: '75px', backgroundColor: 'white', margin: '5px', padding: '5px' }}>
               {task.name}
+              <select>
+                <option>
+                  Test
+                </option>
+              </select>
             </div>
           );
         })
@@ -20,8 +25,8 @@ const TaskColumn = ({ name, colId, ownTasks }) => {
   );
 }
 
-const mapState = ({ tasks }, { colId }) => {
-  const ownTasks = tasks.filter(task => task.colId === colId)
+const mapState = ({ tasks }, { colId, projectId }) => {
+  const ownTasks = tasks.filter(task => task.projectId === projectId && task.colId === colId)
   return {
     ownTasks
   }

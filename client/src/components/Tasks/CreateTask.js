@@ -25,7 +25,7 @@ class CreateTask extends Component {
     ev.preventDefault();
     const { name, description } = this.state;
     const { createTask, project, toggleModal } = this.props;
-    createTask({ name, description }, project.id);
+    createTask({ name, description, projectId: project.id });
     toggleModal(ev);
     this.setState({ name: '', descrption: '' })
   }

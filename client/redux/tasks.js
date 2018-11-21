@@ -17,9 +17,9 @@ export const getTasksFromServer = (projectId) => async dispatch => {
   }
 }
 
-export const createTaskOnServer = (task, projectId) => async dispatch => {
+export const createTaskOnServer = (task) => async dispatch => {
   try {
-    const response = await axios.post(`/api/projects/${projectId}/tasks`, task)
+    const response = await axios.post(`/api/projects/${task.projectId}/tasks`, task)
     const _task = response.data;
     dispatch(createTask(_task));
   } catch(err) {
