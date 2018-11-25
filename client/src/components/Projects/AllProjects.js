@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom';
 
 import ProjectForm from './ProjectForm';
 import EditProject from './EditProject';
@@ -22,12 +23,13 @@ class AllProjects extends Component {
   }
 
   render() {
-    const { projects, loadProject } = this.props;
-    const { isEditing, project } = this.state;
+    const { projects, loadProject, project } = this.props;
+    const { isEditing } = this.state;
     const { toggleModal } = this;
+    // if(!project) return null;
     return (
       <div>
-      <div style={{ padding: '10', marginTop: '10px' }}>
+      <div>
         <h2>All Projects</h2>
         {
           isEditing &&
@@ -39,7 +41,7 @@ class AllProjects extends Component {
             const color = i % 2 === 0 ? 'row-color-white' : 'row-color-none';
             return (
               <div key={p.id} className={color}>
-                <Button
+                {/* <Button
                   label='project settings'
                   onClick={() => toggleModal(p)}
                   active={true}
@@ -48,11 +50,15 @@ class AllProjects extends Component {
                 />
                 <Button
                   label='launch project'
-                  onClick={() => loadProject(p)}
+                  onClick={() => this.props.history.push(`/${this.props.userId}/projects/${p.id}`)}
                   active={true}
                   long={true}
-                />
-                <span className='project-name-margin'>{p.name}</span>
+                /> */}
+                <Link to={`/${this.props.userId}/projects/${p.id}`}>
+                  <span className='project-name-margin'>
+                    {p.name}
+                  </span>
+                </Link>
               </div>
             );
           })
@@ -63,8 +69,14 @@ class AllProjects extends Component {
   }
 }
 
-const mapState = ({ projects, user }) => ({ projects, userId: user.id });
+const mapState = ({ projects, user }) => {
+  // const project = projects.find(p => p.id === projectId);
+  const userId = user.id;
+  return {
+    projects, userId
+  }
+}
 
 const mapDispatch = null;
 
-export default connect(mapState, mapDispatch)(AllProjects);
+export default withRouter(connect(mapState, mapDispatch)(AllProjects));

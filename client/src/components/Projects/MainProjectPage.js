@@ -18,7 +18,7 @@ class MainProjectPage extends Component {
 
   componentDidMount() {
     const { loadTasks, project } = this.props;
-    loadTasks(project.id);
+    if(project) loadTasks(project.id);
   }
 
   toggleModal(ev) {
@@ -29,9 +29,10 @@ class MainProjectPage extends Component {
   render() {
     const { project, toggleDashboard, showDash } = this.props;
     const { toggleModal } = this;
-    const toggleMessage = showDash ? 'hide' : 'show'
+    const toggleMessage = showDash ? 'hide' : 'show';
+    if(!project) return null;
     return (
-      <div>
+      <div style={{ padding: '10', marginTop: '75px' }}>
         <div>
           <h2>Main Project Page: {project.name}</h2>
           <span style={{ cursor: 'pointer' }} onClick={toggleDashboard}>({toggleMessage} dashboard menu)</span>
@@ -61,7 +62,13 @@ class MainProjectPage extends Component {
   }
 }
 
-const mapState = null;
+const mapState = ({ projects }, { projectId }) => {
+  const project = projects.find(p => p.id === projectId);
+  return {
+    project
+  }
+}
+
 const mapDispatch = dispatch => {
   return {
     loadTasks: (projectId) => dispatch(getTasksFromServer(projectId))

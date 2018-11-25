@@ -6,14 +6,18 @@ import { Button } from './Library';
 import LoginSignupModal from './Authentication/LoginSignupModal';
 import Logout from './Authentication/Logout';
 
+import DashNav from './MainDashboard/DashNav';
+
 class Nav extends Component {
   constructor() {
     super();
     this.state = {
       modalOpen: false,
+      dashNavOpen: true
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.toggleDashNav = this.toggleDashNav.bind(this);
   }
 
   openModal(ev) {
@@ -26,9 +30,15 @@ class Nav extends Component {
     this.setState({ modalOpen: false });
   }
 
+  toggleDashNav() {
+    this.setState({ dashNavOpen: !this.state.dashNavOpen })
+    ;
+    this.props.grabNavStatus(this.state.dashNavOpen)
+  }
+
   render() {
-    const { openModal, closeModal } = this;
-    const { modalOpen } = this.state;
+    const { openModal, closeModal, toggleDashNav } = this;
+    const { modalOpen, dashNavOpen } = this.state;
     const { user: { id, email }, loggedIn } = this.props;
     return (
       <div>
@@ -46,10 +56,10 @@ class Nav extends Component {
           }
           {
             loggedIn &&
-              <div className='nav-item nav-text'>
-                <Link className='nav-link' to={`/${id}/dashboard`}>
-                  Dashboard
-                </Link>
+              <div className='nav-item nav-text' onClick={this.toggleDashNav} style={{ cursor: 'pointer' }}>
+                {/* <Link className='nav-link' to={`/${id}/dashboard`}> */}
+                  <span className='nav-link'>Settings</span>
+                {/* </Link> */}
               </div>
           }
           {
@@ -73,6 +83,20 @@ class Nav extends Component {
         {
           !loggedIn && !!modalOpen &&
             <LoginSignupModal modalOpen={modalOpen} closeModal={closeModal} />
+        }
+        {
+          loggedIn && dashNavOpen &&
+            <div>
+              <DashNav dashNavOpen={dashNavOpen} toggleDashNav={toggleDashNav} />
+            </div>
+        }
+        {
+          loggedIn &&
+            <div className='toggle-dash-nav'>
+              <div onClick={toggleDashNav}>
+                {dashNavOpen ? 'hide' : 'show'} settings
+              </div>
+            </div>
         }
       </div>
     );

@@ -1,4 +1,218 @@
-require('dotenv').config();
+/* require('dotenv').config();
+const conn = require('./conn');
+const User = require('./models/User');
+
+// const Task = require('./models/Task');
+// const Project = require('./models/Project');
+// const UserProject = require('./models/UserProject');
+
+const bcrypt = require('bcryptjs');
+const salt = bcrypt.genSaltSync(10);
+
+const jeremyPassword = bcrypt.hashSync(process.env.JG_PW, salt);
+const suPassword = bcrypt.hashSync(process.env.SS_PW, salt);
+
+const seed = async () => {
+  await conn.sync({ force: true });
+  console.log('db synced!');
+  const users = await Promise.all([
+    User.create({
+      email: 'jgrubard@gmail.com',
+      password: jeremyPassword
+    }),
+    User.create({
+      email: 'su@gmail.com',
+      password: suPassword
+    }),
+    User.create({
+      email: 'mario@gmail.com',
+      password: 'mario'
+    })
+  ]);
+  console.log(`seeded ${users.length} users`);
+  console.log(`seeded successfully`);
+}
+
+seed()
+  .catch(err => {
+    console.error(err.message);
+    console.error(err.stack);
+  })
+  // .then(() => {
+  //   console.log('closing db connection');
+  //   conn.close();
+  //   console.log('db connection closed');
+  // })
+
+console.log('seeding...'); */
+
+
+
+
+// require('dotenv').config();
+// const conn = require('./conn');
+// const User = require('./models/User');
+
+// // const Task = require('./models/Task');
+// // const Project = require('./models/Project');
+// // const UserProject = require('./models/UserProject');
+
+// const bcrypt = require('bcryptjs');
+// const salt = bcrypt.genSaltSync(10);
+
+// const jeremyPassword = bcrypt.hashSync(process.env.JG_PW, salt);
+// const suPassword = bcrypt.hashSync(process.env.SS_PW, salt);
+
+
+// const seed = () => {
+//   return Promise.all([
+//     User.create({
+//       email: 'jgrubard@gmail.com',
+//       password: jeremyPassword
+//     }),
+//     User.create({
+//       email: 'su@gmail.com',
+//       password: suPassword
+//     }),
+//     User.create({
+//       email: 'mario@gmail.com',
+//       password: 'mario'
+//     })
+//   ])
+// }
+
+// // const syncAndSeed = () => {
+//   console.log('1. syncing to database');
+//   conn.sync({ force: true })
+//     .then(() => {
+//       console.log('2. database synced');
+//       console.log('3. seeding data');
+//       return seed();
+//     })
+//     .then(() => {
+//       console.log('4. closing connection');
+//       conn.close();
+//       console.log('5. connection closed');
+//       return null;
+//     })
+//     .catch(err => {
+//       console.log('ERROR SEEDING DATABASE');
+//     })
+// // }
+
+
+// // module.exports = syncAndSeed;
+
+
+
+// require('dotenv').config();
+// const conn = require('./conn');
+// const User = require('./models/User');
+
+// const Task = require('./models/Task');
+// const Project = require('./models/Project');
+// const UserProject = require('./models/UserProject');
+
+// const bcrypt = require('bcryptjs');
+// const salt = bcrypt.genSaltSync(10);
+
+// const jeremyPassword = bcrypt.hashSync(process.env.JG_PW, salt);
+// const suPassword = bcrypt.hashSync(process.env.SS_PW, salt);
+
+
+// const syncAndSeed = async () => {
+//   console.log('1. syncing to database');
+//   await conn.sync({ force: true });
+//   console.log('2. database synced');	
+//   console.log('3. seeding data');
+//   const users = await Promise.all([
+//     User.create({
+//       email: 'jgrubard@gmail.com',
+//       password: jeremyPassword
+//     }),
+//     User.create({
+//       email: 'su@gmail.com',
+//       password: suPassword
+//     })
+//   ])
+//   console.log(`4. seeded ${users.length} users`);
+//   return users;
+// }
+
+// syncAndSeed()
+//   .then(() => {
+//     console.log('5. closing connection');
+//     conn.close();
+//     console.log('6. connection closed');
+//     return null;
+//   })
+//   .catch(err => {
+//     console.log('ERROR SEEDING DATABASE');
+//   })
+
+// // module.exports = syncAndSeed;
+
+
+
+
+
+
+
+
+
+
+
+
+// console.log('seeding...');
+
+
+// const sync = () => conn.sync({ force: true });
+
+// const seed = async () => {
+//   const users = await Promise.all([
+//     User.create({
+//       email: 'jgrubard@gmail.com',
+//       password: jeremyPassword
+//     }),
+//     User.create({
+//       email: 'su@gmail.com',
+//       password: suPassword
+//     })
+//   ])
+//   return users;
+// }
+
+
+// const syncAndSeed = () => {
+//   console.log('1. syncing to database');
+//   return sync()
+//   // sync()
+//     .then(() => {
+//       console.log('2. seeding database');
+//       return seed();
+//     })
+//     .then(() => console.log('3. database seeded'))
+//     .then(() => {
+//       console.log('4. closing connection');
+//       conn.close();
+//     })
+//     .catch(err => {
+//       console.log('Error Seeding Database');
+//       console.error(err);
+//     });
+// }
+
+// syncAndSeed();
+
+// module.exports = syncAndSeed;
+
+
+
+
+
+
+
+/* require('dotenv').config();
 const conn = require('./conn');
 const User = require('./models/User');
 
@@ -31,22 +245,25 @@ const seed = () => {
 const syncAndSeed = () => {
   console.log('1. syncing to database');
   return sync()
+  // sync()
     .then(() => {
       console.log('2. seeding database');
       return seed();
     })
     .then(() => console.log('3. database seeded'))
-    // .then(() => {
-      // console.log('4. closing connection');
-      // conn.close();
-    // })
+    .then(() => {
+      console.log('4. closing connection');
+      conn.close();
+    })
     .catch(err => {
       console.log('Error Seeding Database');
       console.error(err);
     });
 }
 
-module.exports = syncAndSeed;
+syncAndSeed();
+
+module.exports = syncAndSeed; */
 
 
 

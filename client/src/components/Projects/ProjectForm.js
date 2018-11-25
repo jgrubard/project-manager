@@ -32,7 +32,7 @@ class ProjectForm extends Component {
     const { handleChange, onSubmit } = this;
     const { name } = this.state;
     return (
-      <div style={{ padding: '10 0', marginTop: '10px' }}>
+      <div>
         Create New Project
         <Input
           placeholder='Project Name'
